@@ -9,8 +9,12 @@
 
 Cards = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
 Suits = ['Clubs','Diamonds','Hearts','Spades']
-Decks = Cards * Suits
-
 DeckSize = 52 * 8
+c=[]
+def deck(Cards,Suits):
+    for i in range(len(Suits)):
+        for j in range(len(Cards)):
+            c.append(Cards[j]+" "+Suits[i])
+            print(c)
 
-print(Decks)
+deck(Cards,Suits)
