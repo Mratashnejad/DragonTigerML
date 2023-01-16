@@ -8,14 +8,23 @@
 
 Suits = ['Clubs','Diamonds','Hearts','Spades']
 Cards = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
+CuttingCard = "REDCART"
 
 # DeckSize = 52 * 8
 Deck=[]
 # counter = 0
+
+
+
 def deck(Cards,Suits):
     for i in Suits:
         for j in Cards:
             Deck = j + " " + i
             print(Deck)
         print("\n")
+    return Deck
 deck(Cards,Suits)
+
+# def create_shooe(Deck,CuttingCard):
+    
+ 
