@@ -6,17 +6,16 @@
 #to the tow part.
 
 
-
-Cards = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
 Suits = ['Clubs','Diamonds','Hearts','Spades']
-DeckSize = 52 * 8
-c=[]
-counter = 0
-def deck(Cards,Suits):
-    for i in range(len(Suits)):
-        for j in range(len(Cards)):
-            c.append(Cards[j]+" "+Suits[i])
-            print(c)
-           
+Cards = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
 
+# DeckSize = 52 * 8
+Deck=[]
+# counter = 0
+def deck(Cards,Suits):
+    for i in Suits:
+        for j in Cards:
+            Deck = j + " " + i
+            print(Deck)
+        print("\n")
 deck(Cards,Suits)
