@@ -5,9 +5,8 @@ import random
 PlayingCard = collections.namedtuple('card', ['suit' , 'rank'])
 
 class PlayingDeck :
-    ranks = [str(rank) for rank in range(2,11)] + ['A','J','Q','K']
+    ranks = [str(rank) for rank in range(2,11)] + ['J','Q','K','A']
     suits = ['Spades' , 'Diamonds' , 'Hearts' , 'Clubs']
-
 
     def __init__(self):
         self._cards = [PlayingCard(rank, suit)
@@ -23,13 +22,15 @@ class PlayingDeck :
 if __name__ == '__main__':
     deck = PlayingDeck()
 
-    first_cut = deck[:4]
-
     for card in deck:
         print(card)
     
+    for card in reversed(deck):
+        print(card)
 
-
+    random.shuffle(deck._cards)
+    for card in deck:
+        print(card)
 
 
 
