@@ -36,11 +36,21 @@ class Shoe(Deck,CuttingCard):
 
     def __repr__(self):
         rep = str(self.shoe)
-        return rep 
+        return rep
+
+    def addfirstcuttingcard(self):
+        shoe_len = len(self.shoe)
+        print(shoe_len)
+
+
+class DragonTiger(S):
+    def __init__(self,)
+
 
 if __name__ == '__main__':
     # print(Card("Spades", "A"))
     #print(Deck())
     print("start shoe")
     print(Shoe())
+    # print("Shoee Len is : " ,Shoe().addfirstcuttingcard)
     print("end shoe")
