@@ -5,10 +5,6 @@ import openpyxl
 import os
 
 
-file_location = os.path.join(os.getcwd(),'results.xls')
-
-wb = openpyxl.Workbook()
-wb.save(file_location)
 class Card:
     suits = ["Spades" , "Heart" , "Clubs" , "Dimonds"]
     ranks = {'A': 1 , '2':2 , '3':3 , '4':4, '5':5,'6':6, '7':7 , '8':8 , '9':9, '10':10, 'J': 11 , 'Q':12 ,'K':13}
@@ -103,3 +99,8 @@ if __name__ == '__main__':
         
     df = pd.DataFrame(results,columns=["Round Number","Dragon Hand","Tiger Hand","Result"])
     df.to_excel("DragonTigerResult.xlsx" , index =False)
+
+file_location = os.path.join(os.getcwd(),'results.xlsx')
+
+wb = openpyxl.Workbook()
+wb.save(file_location)
