@@ -1,4 +1,5 @@
 import random
+import time
 class Card:
     suits = ["Spades" , "Heart" , "Clubs" , "Dimonds"]
     ranks = {'A': 1 , '2':2 , '3':3 , '4':4, '5':5,'6':6, '7':7 , '8':8 , '9':9, '10':10, 'J': 11 , 'Q':12 ,'K':13}
@@ -74,13 +75,17 @@ class DragonTiger:
 
 
 if __name__ == '__main__':
-    shoe = Shoe()
-    game = DragonTiger(shoe.deck)
-    game.shuffle()
-    game.deal()
-    print("Dragon is :", game.dragon_hand)
-    print("Tiger is : ", game.tiger_hand)
-    result = game.compare()
-    print("Result:" ,result)
-    print("end shoe")
-    
+    while True:
+        print("New Rond")
+        shoe = Shoe()
+        game = DragonTiger(shoe.deck)
+        game.shuffle()
+        game.deal()
+        print("Dragon is :", game.dragon_hand)
+        print("Tiger is : ", game.tiger_hand)
+        result = game.compare()
+        print("Result:" ,result)
+        print("End Round")
+        
+        time.sleep(3) # wait for 15 seconds before starting the next game
+        
