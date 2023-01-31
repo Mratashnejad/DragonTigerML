@@ -1,5 +1,14 @@
 import random
 import time
+import pandas as pd
+import openpyxl
+import os
+
+
+file_location = os.path.join(os.getcwd(),'results.xls')
+
+wb = openpyxl.Workbook()
+wb.save(file_location)
 class Card:
     suits = ["Spades" , "Heart" , "Clubs" , "Dimonds"]
     ranks = {'A': 1 , '2':2 , '3':3 , '4':4, '5':5,'6':6, '7':7 , '8':8 , '9':9, '10':10, 'J': 11 , 'Q':12 ,'K':13}
@@ -75,10 +84,11 @@ class DragonTiger:
 
 
 if __name__ == '__main__':
-    counter = 0
-
+    round_number = 0
+    results = []
     while True:
-        print("round number : ",counter)
+        round_number += 1
+        print(f"Round {round_number}:")
         shoe = Shoe()
         game = DragonTiger(shoe.deck)
         game.shuffle()
@@ -87,7 +97,9 @@ if __name__ == '__main__':
         print("Tiger is : ", game.tiger_hand)
         result = game.compare()
         print("Result:" ,result)
-        counter += 1 
         print("End Round")
+        results.append([round_number,game.dragon_hand,game.tiger_hand,result])
         time.sleep(3) # wait for 15 seconds before starting the next game
         
+    df = pd.DataFrame(results,columns=["Round Number","Dragon Hand","Tiger Hand","Result"])
+    df.to_excel("DragonTigerResult.xlsx" , index =False)
