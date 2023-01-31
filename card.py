@@ -1,3 +1,4 @@
+import random
 class Card:
     suits = ["Spades" , "Heart" , "Clubs" , "Dimonds"]
     ranks = {'A': 1 , '2':2 , '3':3 , '4':4, '5':5,'6':6, '7':7 , '8':8 , '9':9, '10':10, 'J': 11 , 'Q':12 ,'K':13}
@@ -8,6 +9,7 @@ class Card:
 
     def __repr__(self):
         return f"{self.rank} of {self.suit}"
+
 class CuttingCard:
     cuttingcard1 = "Cutting Card1"
     cuttingcard2 = "Cutting Card2"
@@ -29,6 +31,7 @@ class Shoe(Deck,CuttingCard):
 
     def __init__(self,shoe = None):
         super().__init__()
+
         if shoe is None:
             self.shoe = [self.deck for i in range(8)] + [self.cuttingcard2] #here cutting curd must be at the end of the shoe
         else :
@@ -43,14 +46,41 @@ class Shoe(Deck,CuttingCard):
         print(shoe_len)
 
 
-class DragonTiger(S):
-    def __init__(self,)
+class DragonTiger:
+    Card = Card
+    def __init__(self,shoe):
+        self.shoe = shoe
+        self.dragon_hand = []
+        self.tiger_hand = []
+
+    def shuffle(self):
+        random.shuffle(self.shoe)
+
+    def deal(self):
+        self.dragon_hand = self.shoe.pop()
+        self.tiger_hand = self.shoe.pop()
+
+    def compare(self):
+        dragon_vale = Card.ranks.get(self.dragon_hand.rank)
+        tiger_value = Card.ranks.get(self.tiger_hand.rank)
+
+        if dragon_vale > tiger_value :
+            return "Dragon Won"
+        elif dragon_vale < tiger_value :
+            return "Tiger Won"
+        else:
+            return "Its a TIE"
+
 
 
 if __name__ == '__main__':
-    # print(Card("Spades", "A"))
-    #print(Deck())
-    print("start shoe")
-    print(Shoe())
-    # print("Shoee Len is : " ,Shoe().addfirstcuttingcard)
+    shoe = Shoe()
+    game = DragonTiger(shoe.deck)
+    game.shuffle()
+    game.deal()
+    print("Dragon is :", game.dragon_hand)
+    print("Tiger is : ", game.tiger_hand)
+    result = game.compare()
+    print("Result:" ,result)
     print("end shoe")
+    
