@@ -75,8 +75,10 @@ class DragonTiger:
 
 
 if __name__ == '__main__':
+    counter = 0
+
     while True:
-        print("New Rond")
+        print("round number : ",counter)
         shoe = Shoe()
         game = DragonTiger(shoe.deck)
         game.shuffle()
@@ -85,7 +87,7 @@ if __name__ == '__main__':
         print("Tiger is : ", game.tiger_hand)
         result = game.compare()
         print("Result:" ,result)
+        counter += 1 
         print("End Round")
-        
         time.sleep(3) # wait for 15 seconds before starting the next game
         
