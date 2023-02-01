@@ -1,7 +1,6 @@
 import random
 import time
 import pandas as pd
-import openpyxl
 import os
 import pickle
 
@@ -98,16 +97,18 @@ def Play():
                 result = game.compare()
                 print("Result:", result)
                 print("End Round")
+                #add to array
                 results.append([round_number,game.dragon_hand,game.tiger_hand,result])
 
+                #excel
                 df = pd.read_excel(file_location)
                 df = pd.concat([df , pd.DataFrame(results,columns=["Round Number","Dragon Hand","Tiger Hand","Result"])],ignore_index=True)
                 df.to_excel("DragonTigerResult.xlsx", index=False ,header=True)  
-                time.sleep(3) # wait for 3 seconds before starting the next game
 
+                #timer
+                time.sleep(3) # wait for 3 seconds before starting the next game
                 last_round_number = round_number
                 round_number += 1
-
                 with open("round_number.pickle" , "wb") as file:
                     pickle.dump(round_number,file)
                 
@@ -124,9 +125,9 @@ if __name__ == '__main__':
         df.to_excel("DragonTigerResult.xlsx", index=False, header=True)
         Play()
     else :
-        df = pd.read_excel(file_location)
-        df = pd.concat([df, pd.DataFrame(results, columns=["Round Number","Dragon Hand","Tiger Hand","Result"])], ignore_index=True)
-        df.to_excel("DragonTigerResult.xlsx", index=False, header=True)
+        # df = pd.read_excel(file_location)
+        # df = pd.concat([df, pd.DataFrame(results, columns=["Round Number","Dragon Hand","Tiger Hand","Result"])], ignore_index=True)
+        # df.to_excel("DragonTigerResult.xlsx", index=False, header=True)
         Play()
    
     
