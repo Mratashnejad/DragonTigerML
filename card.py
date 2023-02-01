@@ -3,7 +3,7 @@ import time
 import pandas as pd
 import openpyxl
 import os
-
+import pickle
 
 class Card:
     suits = ["Spades" , "Heart" , "Clubs" , "Dimonds"]
@@ -77,30 +77,58 @@ class DragonTiger:
         else:
             return "Its a TIE"
 
+def Play():
+    last_round_number = 0
+    
+    try:
+        with open("round_number.pickle","rb") as file:
+            last_round_number = pickle.load(file)
+    except FileNotFoundError:
+            last_round_number = 0
+    round_number = last_round_number + 1
+    while True:
+            try:
+                print(f"Round {round_number}:")
+                shoe = Shoe()
+                game = DragonTiger(shoe.deck)
+                game.shuffle()
+                game.deal()
+                print("Dragon is :", game.dragon_hand)
+                print("Tiger is : ", game.tiger_hand)
+                result = game.compare()
+                print("Result:", result)
+                print("End Round")
+                results.append([round_number,game.dragon_hand,game.tiger_hand,result])
 
+                df = pd.read_excel(file_location)
+                df = pd.concat([df , pd.DataFrame(results,columns=["Round Number","Dragon Hand","Tiger Hand","Result"])],ignore_index=True)
+                df.to_excel("DragonTigerResult.xlsx", index=False ,header=True)  
+                time.sleep(3) # wait for 3 seconds before starting the next game
+
+                last_round_number = round_number
+                round_number += 1
+
+                with open("round_number.pickle" , "wb") as file:
+                    pickle.dump(round_number,file)
+                
+            except KeyboardInterrupt:
+                break
+
+    print("Program stopped by user")
 
 if __name__ == '__main__':
-    round_number = 0
     results = []
-    while True:
-        round_number += 1
-        print(f"Round {round_number}:")
-        shoe = Shoe()
-        game = DragonTiger(shoe.deck)
-        game.shuffle()
-        game.deal()
-        print("Dragon is :", game.dragon_hand)
-        print("Tiger is : ", game.tiger_hand)
-        result = game.compare()
-        print("Result:" ,result)
-        print("End Round")
-        results.append([round_number,game.dragon_hand,game.tiger_hand,result])
-        time.sleep(3) # wait for 15 seconds before starting the next game
+    file_location = os.path.join(os.getcwd(),'DragonTigerResult.xlsx')
+    if not os.path.exists(file_location):
+        df = pd.DataFrame(results,columns=["Round Number","Dragon Hand","Tiger Hand","Result"])
+        df.to_excel("DragonTigerResult.xlsx", index=False, header=True)
+        Play()
+    else :
+        df = pd.read_excel(file_location)
+        df = pd.concat([df, pd.DataFrame(results, columns=["Round Number","Dragon Hand","Tiger Hand","Result"])], ignore_index=True)
+        df.to_excel("DragonTigerResult.xlsx", index=False, header=True)
+        Play()
+   
+    
         
-    df = pd.DataFrame(results,columns=["Round Number","Dragon Hand","Tiger Hand","Result"])
-    df.to_excel("DragonTigerResult.xlsx" , index =False)
-
-file_location = os.path.join(os.getcwd(),'results.xlsx')
-
-wb = openpyxl.Workbook()
-wb.save(file_location)
+        
